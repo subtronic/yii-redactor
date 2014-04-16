@@ -1,0 +1,18 @@
+{
+    "name": "subtronic/yii-redactor",
+    "description": "Best WYSIWYG free editor for Yii",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jani Mikkonen",
+            "email": "janisto@php.net"
+        },
+    ],
+    "autoload": {
+        "classmap": [
+            "ERedactorWidget.php"
+        ]
+    },
+    "require": {
+    }
+}
