@@ -13,9 +13,11 @@ class ImageUpload extends CAction
 	public $uploadUrl;
 	public $uploadCreate=false;
 	public $permissions=0774;
+	public $disableLoggers = false;
 
 	public function run($attr)
 	{
+		if($this->disableLoggers) $this->controller->disableLoggers();
 		$name=strtolower($this->getController()->getId());
 		$attribute=strtolower((string)$attr);
 
@@ -39,7 +41,7 @@ class ImageUpload extends CAction
 
 		$file=CUploadedFile::getInstanceByName('file');
 		if ($file instanceof CUploadedFile) {
-			$attributePath=$this->uploadPath.DIRECTORY_SEPARATOR.$name.DIRECTORY_SEPARATOR.$attribute;
+			$attributePath=$this->uploadPath;//.DIRECTORY_SEPARATOR.$name.DIRECTORY_SEPARATOR.$attribute;
 			if (!in_array(strtolower($file->getExtensionName()),array('gif','png','jpg','jpeg'))) {
 				throw new CHttpException(500,CJSON::encode(
 					array('error'=>'Invalid file extension '. $file->getExtensionName().'.')
@@ -59,7 +61,7 @@ class ImageUpload extends CAction
 					array('error'=>'Could not save file or file exists: "'.$path.'".')
 				));
 			}
-			$attributeUrl=$this->uploadUrl.'/'.$name.'/'.$attribute.'/'.$fileName;
+			$attributeUrl=$this->uploadUrl/*.'/'.$name.'/'.$attribute*/.'/'.$fileName;
 			$data = array(
 				'filelink'=>$attributeUrl,
 			);

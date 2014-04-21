@@ -10,9 +10,11 @@ class ImageList extends CAction
 {
 	public $uploadPath;
 	public $uploadUrl;
-
+	public $disableLoggers = false;
+	
 	public function run($attr)
 	{
+		if($this->disableLoggers) $this->controller->disableLoggers();
 		$name=strtolower($this->getController()->getId());
 		$attribute=strtolower((string)$attr);
 
@@ -27,8 +29,8 @@ class ImageList extends CAction
 			$this->uploadUrl=Yii::app()->request->baseUrl .'/uploads';
 		}
 
-		$attributePath=$this->uploadPath.DIRECTORY_SEPARATOR.$name.DIRECTORY_SEPARATOR.$attribute;
-		$attributeUrl=$this->uploadUrl.'/'.$name.'/'.$attribute.'/';
+		$attributePath=$this->uploadPath;//.DIRECTORY_SEPARATOR.$name.DIRECTORY_SEPARATOR.$attribute;
+		$attributeUrl=$this->uploadUrl;//.'/'.$name.'/'.$attribute.'/';
 
 		$files=CFileHelper::findFiles($attributePath,array('fileTypes'=>array('gif','png','jpg','jpeg')));
 		$data=array();

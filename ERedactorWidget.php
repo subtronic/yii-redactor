@@ -4,7 +4,7 @@
  * Redactor widget
  *
  * @author Jani Mikkonen <janisto@php.net>
- * @version 1.2.0
+ * @version 1.1
  * @license public domain (http://unlicense.org)
  * @package extensions.redactor
  * @link http://imperavi.com/redactor/
@@ -32,6 +32,8 @@ class ERedactorWidget extends CInputWidget {
 	 */
 	public $options = array();
 
+
+	public $plugins = null;
 	/**
 	 * @var string|null textarea selector for jQuery
 	 */
@@ -90,6 +92,12 @@ class ERedactorWidget extends CInputWidget {
 			);
 		}
 		$cs->registerPackage(self::PACKAGE_ID);
+		if(isset($this->plugins)){
+			foreach ($this->plugins as $name) {
+				$cs->registerScriptFile($this->assetsUrl . '/js/plugins/'.$name.'/'.$name.'.js');
+				$this->options['plugins'][] = $name;
+			}
+		}
 
 		if (isset($this->options['lang']) && $this->options['lang'] != 'en') {
 			$cs->registerScriptFile($this->assetsUrl . '/js/lang/' . $this->options['lang'] . '.js');
