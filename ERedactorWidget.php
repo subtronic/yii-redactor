@@ -92,6 +92,7 @@ class ERedactorWidget extends CInputWidget {
 			);
 		}
 		$cs->registerPackage(self::PACKAGE_ID);
+		$this->options['focus'] = false;
 		if(isset($this->plugins)){
 			foreach ($this->plugins as $name) {
 				$cs->registerScriptFile($this->assetsUrl . '/js/plugins/'.$name.'/'.$name.'.js');
